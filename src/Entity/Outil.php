@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: OutilRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Outil
 {
     #[ORM\Id]
@@ -40,11 +45,33 @@ class Outil
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'outils')]
     private Collection $tags;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Images = null;
+
+
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'Images')]
+    private ?File $file = null;
     public function __construct()
     {
         $this->tags = new ArrayCollection();
     }
 
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $this->dateM = new \DateTime();
+
+        // Ne met à jour dateP que lors de la création de l'entité
+        if ($this->dateP === null) {
+            $this->dateP = new \DateTimeImmutable();
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -158,6 +185,38 @@ class Outil
             $tag->removeOutil($this);
         }
 
+        return $this;
+    }
+
+    public function getImages(): ?string
+    {
+        return $this->Images;
+    }
+
+    public function setImages(string $Images): static
+    {
+        $this->Images = $Images;
+
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+ /** 
+ *@param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
+ **/  
+
+
+    public function setFile(File|UploadedFile|null $file): Outil
+    {
+        $this->file = $file;
+    
+        if (null !== $file) {
+            $this->date_m = new \DateTimeImmutable();
+            }
         return $this;
     }
 }

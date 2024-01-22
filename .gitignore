@@ -23,3 +23,7 @@
 ###> symfony/asset-mapper ###
 /public/assets/
 ###< symfony/asset-mapper ###
+
+# Images
+public/images/*
+!public/images/.gitignore
