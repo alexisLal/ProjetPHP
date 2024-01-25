@@ -1,9 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{Outil.nom}}{% endblock %}
+{% block title %}
+	{{outil.nom}}
+{% endblock %}
 
 {% block body %}
-<div class="d-flex">
-
-</div>
+	<div class="card" style="max-width: 820px;">
+		<div class="row g-0">
+			<div class="col-md-4">
+				<img src="{{ vich_uploader_asset(outil, 'file') }}"/>
+			</div>
+			<div class="col-md-8" style="width: 500px">
+				<div class="card-body">
+					<h5 class="card-title">{{outil.nom}}</h5>
+					<p class="card-text">{{outil.descriptif}}</p>
+					<p class="card-text">
+						<small class="text-body-secondary">{{outil.dateM|date('d/m/Y')}}</small>
+					</p>
+					<a href="{{outil.url}}">{{outil.url}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
+
