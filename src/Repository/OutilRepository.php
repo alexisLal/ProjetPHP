@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Outil;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Model\SearchData;
 
 /**
  * @extends ServiceEntityRepository<Outil>
@@ -45,4 +46,18 @@ class OutilRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findBySearch(SearchData $searchData)
+    {
+        $outils = $this->createQueryBuilder('o')
+            ->where('o.nom LIKE :q')
+            ->setParameter('q', "%{$searchData->q}%");
+        
+        $outils = $outils
+            ->getQuery()
+            ->getResult();
+
+        return $outils;
+            
+    }
 }

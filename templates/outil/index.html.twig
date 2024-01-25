@@ -4,10 +4,17 @@
 {% endblock %}
 
 {% block body %}
-	<div class="d-flex">
+	{% include "outil/_search_data.html.twig" %}
+	{# <div class="d-flex justify-content-end mb-5 mt-5 me-5">
+				<form>
+					<input class="" id="search" type="search" placeholder="Rechercher ici">
+					<input id="submit" type="submit" value="🔍">
+				</form>
+			</div> #}
+	<div class="container d-flex">
 		{% for outil in outils %}
-			<div class="card" style="width: 18rem;">
-				<img src="..." class="card-img-top" alt="...">
+			<div class="card me-5">
+				<img class="card-img-top" src="{{ vich_uploader_asset(outil, 'file') }}"/>
 				<div class="card-body">
 					<h5 class="card-title">{{outil.nom}}</h5>
 					<p class="card-text">{{outil.descriptif}}</p>
