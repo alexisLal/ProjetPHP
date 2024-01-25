@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Outil;
 use App\Entity\Tag;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -47,7 +48,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Données');
         yield MenuItem::linkToCrud('Outils', 'fa-solid fa-screwdriver-wrench', Outil::class);
         yield MenuItem::linkToCrud('Tags', 'fa-solid fa-tag', Tag::class);
+        yield MenuItem::linkToCrud('User', 'fa-solid fa-user', User::class);
 
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+    
     }
 }
