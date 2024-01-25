@@ -5,24 +5,21 @@
 
 {% block body %}
 	<div class="d-flex justify-content-center">
-		<h1>Register</h1>
+		<h1>Inscription</h1>
 	</div>
-	<form>
-		<div class="form-group d-flex justify-content-center">
-			<div>
-				{{ form_errors(registrationForm) }}
-				{{ form_start(registrationForm) }}
-				{{ form_row(registrationForm.email, {'attr': {'class' : 'form-control w-100 mb-1'}}) }}
-				{{ form_row(registrationForm.plainPassword,
-			{
-				label: 'Password',
-                attr: {'class' : 'form-control w-100 mb-1'}
-			}) }}
-				{{ form_row(registrationForm.agreeTerms, {'attr': {'class' : 'form-check-label mb-3'}}) }}
+	<div class="form-group d-flex justify-content-center">
+		<div>
+			{{ form_errors(registrationForm) }}
+			{{ form_start(registrationForm) }}
+			{{ form_row(registrationForm.email, {'attr': {'class' : 'form-control w-100 mb-1'}}) }}
+			{{ form_row(registrationForm.plainPassword,
+                        {
+                        label: 'Password',
+                        attr: {'class' : 'form-control w-100 mb-1'}}) }}
+			{{ form_row(registrationForm.agreeTerms, {'attr': {'class' : 'form-check-label mb-3'}}) }}
 
-				<button type="submit" class="btn btn-primary">Register</button>
-				{{ form_end(registrationForm) }}
-			</div>
+			<button type="submit" class="btn btn-primary">Register</button>
+			{{ form_end(registrationForm) }}
 		</div>
-	</form>
+	</div>
 {% endblock %}
